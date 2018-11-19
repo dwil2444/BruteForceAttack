@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 #include<crypt.h>
+#include <cstdio>
+#include <ctime>
 using namespace std;
 
 std::string randStr(size_t length);
 bool decrypt(std::string guess, std::string target);
-
+string dpass;
 int main()
 {
 
@@ -16,30 +18,30 @@ int main()
   string passwd; //original password
   string attempt; //attempts at decrypting password
   string epass; //encrypted password
-  string dpass; //decrypted password
-  string alph[52] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
-                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                      "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
-                     "e", "f", "g" , "h", "i", "j", "k", "l", "m", "n",
-                     "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-                      "y", "z"};
+  //string dpass; //decrypted password
+  // string alph[52] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
+  //                    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+  //                     "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+  //                    "e", "f", "g" , "h", "i", "j", "k", "l", "m", "n",
+  //                    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+  //                     "y", "z"};
 
   cout << "Please enter a four letter password: ";
   cin >> passwd;
   epass = crypt(passwd.c_str(), "$1$ab$");
   cout << "Encrypted password: " << epass << endl;
-  /*
-    1. Find all the permutations of a string of length n given a character set of 52
-    2. crypt each combination with the known salt and compare
-    3. calculate the time taken to find each password
-    4. Average the time taken and document results.
-    5. Do this for passwords of length between 0 and 7
-  */
   bool found = false;
+  std::clock_t start;
+  start = std::clock();
+  double duration;
   while(!found)
   {
-    found = decrypt(randStr(passwd.length),epass);
+    found = decrypt(randStr(passwd.length()+1),epass);
   }
+  std::cout.precision(2);
+  duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+  cout <<"Found in: " << duration << " seconds\n";
+  cout << dpass;
   return 0;
 
 }
@@ -69,6 +71,7 @@ bool decrypt(std::string guess, std::string target)
 {
   if (crypt(guess.c_str(), "$1$ab$") == target)
   {
+    dpass = guess.c_str();
     return true;
   }
   return false;
