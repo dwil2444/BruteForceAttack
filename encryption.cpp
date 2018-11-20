@@ -12,7 +12,6 @@ using namespace std;
 void gen_str(const char*,std::string,const int, const int);
 std::vector<std::string> permutations ;
 int NumberOfPermutations = 0;
-void randStr(size_t length);
 bool decrypt(std::string guess, std::string target);
 int compare (const void * a, const void * b); 
 //////////////////////////////////////////////////////////
@@ -59,13 +58,8 @@ int main()
   return 0;
 
 }
-void randStr(size_t length) 
-{
-  
-}
 bool decrypt(std::string guess, std::string target)
 {
-  //cout << guess;
   if (crypt(guess.c_str(), "$1$ab$") == target)
   {
     dpass = guess.c_str();
