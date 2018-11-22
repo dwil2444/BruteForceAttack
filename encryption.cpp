@@ -22,7 +22,7 @@ int main()
   string passwd; //original password
   string attempt; //attempts at decrypting password
   string epass; //encrypted password
-  cout << "Please enter password to be cracked: ";
+  cout << "Please enter password to be cracked: "; // read a string from the user
   cin >> passwd;
   int length = passwd.length();
   char str[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -32,11 +32,11 @@ int main()
                 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z'};
   int n = sizeof str;
-  for (int k = 1; k <= length; k++)
+  for (int k = 1; k <= length; k++) // generate all the permutations of the string from length 1 to n
   {
     gen_str(str, "", n, k);
   }
-  epass = crypt(passwd.c_str(), "ab");
+  epass = crypt(passwd.c_str(), "ab");  // encrypt the password entered by the user using crypt function and salt value
   cout << "Encrypted password: " << epass << endl;
   std::string* permut_array =  new std::string[NumberOfPermutations];
   std::copy(permutations.begin(), permutations.end(), permut_array);
@@ -60,14 +60,14 @@ int main()
 }
 bool decrypt(std::string guess, std::string target)
 {
-  if (crypt(guess.c_str(), "ab") == target)
+  if (crypt(guess.c_str(), "ab") == target)  // if the current string matches the password when encrypted
   {
     dpass = guess.c_str();
-    return true;
+    return true;  // then this is the password entered by the user
   }
-  return false;
+  return false; // otherwise it is not
 }
-void gen_str(const char str[],std::string prefix,const int n, const int length)
+void gen_str(const char str[],std::string prefix,const int n, const int length) //recursively generate all permutations of a string of length n
 {
     if (length == 1)
     {
@@ -83,5 +83,5 @@ void gen_str(const char str[],std::string prefix,const int n, const int length)
             gen_str(str, prefix + str[i], n, length - 1);
         }
     }
-    NumberOfPermutations = permutations.size();
+    NumberOfPermutations = permutations.size(); // keep track of the number of permutations
 }
