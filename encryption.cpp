@@ -1,8 +1,8 @@
 #include <iostream>
-#include<stdio.h> 
-#include<stdlib.h> 
+#include<stdio.h>
+#include<stdlib.h>
 #include <string>
-#include<crypt.h>
+#include<unistd.h>
 #include <cstdio>
 #include <ctime>
 #include <vector>
@@ -13,7 +13,7 @@ void gen_str(const char*,std::string,const int, const int);
 std::vector<std::string> permutations ;
 int NumberOfPermutations = 0;
 bool decrypt(std::string guess, std::string target);
-int compare (const void * a, const void * b); 
+int compare (const void * a, const void * b);
 //////////////////////////////////////////////////////////
 
 string dpass;
@@ -25,7 +25,7 @@ int main()
   cout << "Please enter password to be cracked: ";
   cin >> passwd;
   int length = passwd.length();
-  char str[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+  char str[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
                 'e', 'f', 'g' , 'h', 'i', 'j', 'k', 'l', 'm', 'n',
@@ -34,9 +34,9 @@ int main()
   int n = sizeof str;
   for (int k = 1; k <= length; k++)
   {
-    gen_str(str, "", n, k);  
+    gen_str(str, "", n, k);
   }
-  epass = crypt(passwd.c_str(), "$1$ab$");
+  epass = crypt(passwd.c_str(), "ab");
   cout << "Encrypted password: " << epass << endl;
   std::string* permut_array =  new std::string[NumberOfPermutations];
   std::copy(permutations.begin(), permutations.end(), permut_array);
@@ -60,7 +60,7 @@ int main()
 }
 bool decrypt(std::string guess, std::string target)
 {
-  if (crypt(guess.c_str(), "$1$ab$") == target)
+  if (crypt(guess.c_str(), "ab") == target)
   {
     dpass = guess.c_str();
     return true;
