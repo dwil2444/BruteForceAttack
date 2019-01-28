@@ -15,3 +15,8 @@ This is a C++ console application to perform a brute force attack using all poss
 
 2. Run the program subsequently using:
     ```./loader.sh```
+# OR
+1. From the terminal enter the following command to compile:
+    ```make```
+2. From the terminal enter the following command to run:
+    ```./file```
