@@ -9,4 +9,9 @@ This is a C++ console application to perform a brute force attack using all poss
 
 2. Run the code by typing the following in the terminal:
    ```./file```
+# OR 
+1. From the terminal, enter the following command (only one time is necessary):
+    ```chmod +x ./loader.sh```
 
+2. Run the program subsequently using:
+    ```./loader.sh```
